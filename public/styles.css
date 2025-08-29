@@ -1,0 +1,161 @@
+/* ===== Base ===== */
+:root{
+    --bg:#0e1324;
+    --card:#151b34;
+    --muted:#273055;
+    --text:#e9eefc;
+    --accent:#59b2f4;
+    --accent-2:#6be3b4;
+    --danger:#ff6b6b;
+  }
+  
+  *{box-sizing:border-box}
+  html,body{height:100%}
+  html{font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";}
+  body{
+    margin:0; background:linear-gradient(180deg,#0b1020 0%, #0e1324 100%); color:var(--text);
+  }
+  
+  /* ===== Layout ===== */
+  .wrap{ max-width:900px; margin:40px auto; padding:0 16px; }
+  .card{
+    background:var(--card);
+    border:1px solid rgba(255,255,255,0.06);
+    border-radius:14px;
+    box-shadow: 0 12px 30px rgba(0,0,0,.35);
+    padding:18px;
+  }
+  h1{font-size:22px; margin:0 0 12px; letter-spacing:.2px}
+  .row{ display:flex; gap:8px; align-items:center; flex-wrap: wrap; margin:8px 0; }
+  
+  /* ===== Inputs / Buttons ===== */
+  input, select, button{
+    font:inherit; color:var(--text);
+    border-radius:10px; border:1px solid var(--muted);
+    background:#0f162e; padding:10px 12px;
+  }
+  input::placeholder{color:#a6b0d6}
+  input, select{min-width: 180px}
+  button{
+    border:none; background:var(--accent); color:#0b1020; font-weight:700;
+    padding:10px 14px; cursor:pointer; transition:transform .06s ease, box-shadow .2s ease;
+    box-shadow:0 6px 16px rgba(89,178,244,.35);
+  }
+  button:hover{transform:translateY(-1px)}
+  button.secondary{
+    background:#1b2447; color:var(--text); border:1px solid var(--muted);
+    box-shadow:none;
+  }
+  button.danger{ background:var(--danger); color:white }
+  
+  /* ===== Feed ===== */
+  #feed{
+    height: 240px; overflow:auto;
+    border:1px solid var(--muted);
+    border-radius:12px; padding:10px; margin:10px 0;
+    background:#0f152b;
+  }
+  #feed p{ margin:4px 0; line-height:1.3 }
+  #feed p.sys{ color:#a7b2dd; font-style:italic }
+  
+  /* ===== Game Panels ===== */
+  .game-panel{ display:none; margin-top:8px; }
+  .game-panel.active{ display:block; }
+  
+  /* Guess UI */
+  #guess-ui input{ width:110px; text-transform:lowercase }
+  
+  /* Tic Tac Toe grid */
+  #ttt-board{
+    margin-top:8px;
+    display:grid; grid-template-columns: repeat(3, 84px); gap:8px;
+  }
+  #ttt-board button{
+    width:84px; height:84px; font-size:28px; font-weight:800;
+    background:#10183a; color:#eaf1ff;
+    border:1px solid #2a3563;
+  }
+  #ttt-board button:hover{ background:#13214a }
+  #tttStatus, #guessStatus{ margin:8px 2px; color:#cbd6ff }
+  
+  /* ===== Gin: Big readable tiles above draw buttons ===== */
+  .card-visual{
+    width:96px; height:136px;
+    display:flex; align-items:center; justify-content:center;
+    border:2px solid #444; border-radius:12px; background:#fff;
+    box-shadow:0 3px 10px rgba(0,0,0,.15);
+    font-weight:800; font-size:30px; line-height:1; user-select:none;
+    color:#111;
+  }
+  .card-visual.empty{
+    background:repeating-linear-gradient(45deg,#f3f4f8,#f3f4f8 10px,#e4e6ed 10px,#e4e6ed 20px);
+    border-style:dashed; color:#aaa;
+  }
+  .card-visual.red { color:#d22; }
+  .card-visual.black { color:#111; }
+  
+  /* ===== Gin: Hand (non-wrapping row with horizontal scroll) ===== */
+  #ginHand {
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
+    flex-wrap: nowrap;         /* keep on one line */
+    overflow-x: auto;          /* scroll if too many cards */
+    padding: 4px 0;
+  }
+  #ginHand::-webkit-scrollbar { height: 10px; }
+  #ginHand::-webkit-scrollbar-thumb { background: #6b7280; border-radius: 5px; }
+  
+  /* ===== Gin: Draggable hand cards ===== */
+  .hand-card{
+    width:84px; height:120px;
+    display:flex; align-items:center; justify-content:center;
+    padding:0 6px;
+    border:2px solid #666; border-radius:12px; background:#fff;
+    box-shadow:0 2px 8px rgba(0,0,0,.12);
+    font-weight:800; font-size:24px; line-height:1; user-select:none; cursor:grab;
+    transition:transform .12s ease, box-shadow .12s ease, border-color .12s ease;
+    color:#111;
+  }
+  .hand-card.red{ color:#d22; }
+  .hand-card.black{ color:#111; }
+  .hand-card:active{ cursor:grabbing; transform:scale(.98); }
+  .hand-card:hover{ box-shadow:0 6px 14px rgba(0,0,0,.18); }
+  
+  /* Drag hints */
+  .hand-card.drop-before::before,
+  .hand-card.drop-after::after{
+    content:"";
+    position:absolute; top:-6px; bottom:-6px; width:0;
+    border-left:4px solid #59b2f4; border-radius:2px;
+  }
+  .hand-card.drop-before{ position:relative; }
+  .hand-card.drop-before::before{ left:-6px; }
+  .hand-card.drop-after{ position:relative; }
+  .hand-card.drop-after::after{ right:-6px; }
+  
+  /* ===== Gin: legacy hand buttons (if any still used) ===== */
+  #ginHand button{
+    background:#10183a;
+    color:#eaf1ff;
+    border:1px solid #2a3563;
+    border-radius:10px;
+    min-width:56px;
+  }
+  #ginHand button:disabled{
+    opacity:.55; cursor:not-allowed;
+  }
+  
+  /* Toolbar */
+  .toolbar{
+    display:flex; gap:8px; align-items:center; flex-wrap:wrap;
+    background:#101736; border:1px solid var(--muted);
+    padding:10px; border-radius:10px;
+  }
+  
+  /* Small screens */
+  @media (max-width:560px){
+    #ttt-board{ grid-template-columns: repeat(3, 72px) }
+    #ttt-board button{ width:72px; height:72px; font-size:24px }
+  }
+  

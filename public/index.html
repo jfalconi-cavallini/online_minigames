@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Mini Games</title>
+  <link rel="stylesheet" href="styles.css"/>
+</head>
+<body>
+  <div class="wrap">
+    <div class="card">
+      <h1>Mini Games</h1>
+
+      <div class="toolbar">
+        <input id="name" placeholder="Display name"/>
+        <button id="setName">Save</button>
+
+        <input id="room" placeholder="Room code (e.g., lobby)"/>
+        <button id="join">Join</button>
+
+        <select id="game">
+          <option value="guess">Guess the Letter</option>
+          <option value="tictactoe">Tic-Tac-Toe</option>
+          <option value="gin">Gin Rummy</option>
+        </select>
+        <button id="selectGame" class="secondary">Set Game</button>
+
+        <button id="resetGame" class="danger" title="Reset current game">Reset</button>
+      </div>
+
+      <div id="feed"></div>
+
+      <!-- Guess -->
+      <div id="guess-ui" class="game-panel">
+        <div class="row">
+          <input id="guessLetter" maxlength="1" placeholder="a-z"/>
+          <button id="sendGuess">Guess</button>
+        </div>
+        <p id="guessStatus"></p>
+      </div>
+
+      <!-- TicTacToe -->
+      <div id="tictactoe-ui" class="game-panel">
+        <div id="ttt-board"></div>
+        <p id="tttStatus"></p>
+      </div>
+
+      <!-- Gin Rummy -->
+      <div id="gin-ui" class="game-panel">
+        <div class="row" style="align-items:flex-start; gap: 18px;">
+          <!-- Stock -->
+          <div style="display:flex;flex-direction:column;align-items:center;gap:6px;">
+            <div id="ginStockCard" class="card-visual empty" title="Stock"></div>
+            <button id="ginDrawStock">Draw Stock</button>
+            <div id="ginStockCount" class="muted">Stock: —</div>
+          </div>
+          <!-- Discard -->
+          <div style="display:flex;flex-direction:column;align-items:center;gap:6px;">
+            <div id="ginDiscardCard" class="card-visual empty" title="Top of Discard"></div>
+            <button id="ginDrawDiscard" class="secondary">Draw Discard</button>
+            <div class="muted">Top of Discard</div>
+          </div>
+          <!-- Status / info -->
+          <div style="min-width:260px;flex:1;">
+            <p id="ginInfo" style="margin:4px 0 6px;font-weight:600;"></p>
+            <div id="ginTop" class="row"></div>
+          </div>
+        </div>
+
+        <h3 style="margin:8px 2px;">Your Hand</h3>
+        <div id="ginHand" class="row"></div>
+        <p class="muted" style="margin-top:6px;">Drag to reorder. Click a card to discard during your discard phase.</p>
+      </div>
+    </div>
+  </div>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="client.js"></script>
+</body>
+</html>
